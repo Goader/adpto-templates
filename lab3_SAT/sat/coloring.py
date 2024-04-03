@@ -1,9 +1,11 @@
+from typing import Optional, List
+
 import pycosat
 
 from sat.types import EdgeList
 
 
-def solve_coloring(graph: EdgeList, k: int) -> bool:
+def solve_coloring(graph: EdgeList, k: int) -> Optional[List[int]]:
     """
     Czy da się przypisać każdemu z wierzchołków jeden z k kolorów tak,
     żeby żadne dwa wierzchołki połączone krawędzią nie miały tego samego koloru.
@@ -28,7 +30,12 @@ def solve_coloring(graph: EdgeList, k: int) -> bool:
 
     :param graph: graph represented as a list of edges
     :param k: number of colors
-    :return: whether it's possible to assign each vertex one of k colors, so that
-    no two vertices connected with an edge have the same color
+    :return: empty list if the graph cannot be colored with k colors, otherwise
+    a list returned by the SAT solver, where each element is a variable
     """
+
+    def to_idx(vertex, color):
+        """Assuming that vertices are counted from 0"""
+        return vertex * k + color + 1
+
     pass
